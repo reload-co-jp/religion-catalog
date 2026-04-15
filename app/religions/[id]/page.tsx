@@ -118,7 +118,7 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
         <p className={styles.eyebrow}>{record.religion}</p>
         <h1 className={styles.heroTitle}>{record.sect}</h1>
         <p className={styles.heroText}>
-          この宗派がどんな価値観や暮らし方に近いのかを、
+          {record.sect}がどんな価値観や暮らし方に近いのかを、
           概要、実践、生活への影響までまとめて、読みやすく確認できます。
         </p>
         <div className={styles.heroHighlights}>
@@ -130,10 +130,8 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div>
-            <h2 className={styles.sectionTitle}>個別詳細</h2>
-            <p className={styles.sectionText}>
-              READMEで定義された7つの観点に沿って、この宗派の特徴を整理しています。
-            </p>
+            <h2 className={styles.sectionTitle}>{record.sect}の特徴</h2>
+            <p className={styles.sectionText}>宗派の特徴を整理しています</p>
           </div>
         </div>
         <ReligionDetail comparisonTarget={comparisonTarget} record={record} />
