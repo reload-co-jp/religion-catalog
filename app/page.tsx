@@ -15,8 +15,20 @@ export const metadata: Metadata = {
     title: "信じるものを見つける | 宗教比較カタログ",
     description:
       "価値観や暮らし方に近い宗教・宗派を、教義、神観、実践、生活への影響から比較できる一覧ページ。",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "宗教比較カタログ",
+      },
+    ],
     type: "website",
     url: siteUrl,
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/opengraph-image"],
   },
 }
 

@@ -51,13 +51,22 @@ export async function generateMetadata({
     openGraph: {
       title: `${record.religion} / ${record.sect} | 宗教比較カタログ`,
       description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響、他宗派との違いを整理した個別ページ。`,
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: "宗教比較カタログ",
+        },
+      ],
       type: "article",
       url: `${siteUrl}/religions/${record.id}/`,
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: `${record.religion} / ${record.sect} | 宗教比較カタログ`,
       description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響、他宗派との違いを整理した個別ページ。`,
+      images: ["/opengraph-image"],
     },
   }
 }

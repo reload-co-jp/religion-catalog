@@ -28,6 +28,14 @@ export const metadata: Metadata = {
     title: "宗教比較カタログ",
     description:
       "宗教・宗派の教義、神観、実践、生活への影響を中立的に比較し、価値観に近い特徴を探せるカタログサイト。",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "宗教比較カタログ",
+      },
+    ],
     locale: "ja_JP",
     siteName: "宗教比較カタログ",
     type: "website",
@@ -38,6 +46,7 @@ export const metadata: Metadata = {
     title: "宗教比較カタログ",
     description:
       "宗教・宗派の教義、神観、実践、生活への影響を中立的に比較し、価値観に近い特徴を探せるカタログサイト。",
+    images: ["/opengraph-image"],
   },
   robots: {
     follow: true,
