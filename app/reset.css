@@ -85,6 +85,13 @@ textarea {
   padding: 1rem 0 2rem;
 }
 
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
 @media (max-width: 720px) {
   .shell {
     width: min(100% - 1rem, 1280px);

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+import { articleDefinitions } from "lib/articles"
 import { religionRecords } from "lib/religion"
 
 const siteUrl =
@@ -13,6 +14,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: "weekly",
       priority: 1,
     },
+    {
+      url: `${siteUrl}/articles/`,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ]
 
   const religionRoutes: MetadataRoute.Sitemap = religionRecords.map((record) => ({
@@ -22,7 +28,13 @@ const sitemap = (): MetadataRoute.Sitemap => {
     priority: 0.8,
   }))
 
-  return [...staticRoutes, ...religionRoutes]
+  const articleRoutes: MetadataRoute.Sitemap = articleDefinitions.map((article) => ({
+    url: `${siteUrl}/articles/${article.slug}/`,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }))
+
+  return [...staticRoutes, ...religionRoutes, ...articleRoutes]
 }
 
 export default sitemap

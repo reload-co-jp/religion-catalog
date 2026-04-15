@@ -121,16 +121,19 @@ const selectOptions = [
   {
     key: "afterlife",
     label: "死後観",
+    helpHref: "/articles/afterlife/",
     values: filterOptions.afterlife,
   },
   {
     key: "disciplineStrictness",
     label: "戒律の厳しさ",
+    helpHref: "/articles/discipline/",
     values: filterOptions.disciplineStrictness,
   },
   {
     key: "practiceBurden",
     label: "実践負荷",
+    helpHref: "/articles/practice-burden/",
     values: filterOptions.practiceBurden,
   },
   {
@@ -177,7 +180,18 @@ const FilterControls = ({
   <div className={styles.filterGrid}>
     {selectOptions.map((option) => (
       <fieldset className={styles.filterFieldset} key={option.key}>
-        <legend className={styles.filterLegend}>{option.label}</legend>
+        <legend className={styles.filterLegend}>
+          <span>{option.label}</span>
+          {"helpHref" in option ? (
+            <Link
+              aria-label={`${option.label}の解説記事へ`}
+              className={styles.filterHelpLink}
+              href={option.helpHref}
+            >
+              ?
+            </Link>
+          ) : null}
+        </legend>
         <div className={styles.filterOptionList}>
           {option.values.map((value) => {
             const selectedValues = filters[option.key] as string[]
