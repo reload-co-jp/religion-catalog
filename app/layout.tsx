@@ -1,9 +1,48 @@
+import type { Metadata } from "next"
 import { Title } from "components/elements/layout"
 import "./reset.css"
 
-export const metadata = {
-  title: "宗教比較カタログ",
-  description: "宗教・宗派の教義、神観、実践、生活への影響を中立的に比較するカタログサイト",
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "宗教比較カタログ",
+    template: "%s | 宗教比較カタログ",
+  },
+  description:
+    "宗教・宗派の教義、神観、実践、生活への影響を中立的に比較し、価値観に近い特徴を探せるカタログサイト。",
+  keywords: [
+    "宗教比較",
+    "宗派比較",
+    "宗教一覧",
+    "宗教の違い",
+    "宗教 カタログ",
+    "宗派 一覧",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "宗教比較カタログ",
+    description:
+      "宗教・宗派の教義、神観、実践、生活への影響を中立的に比較し、価値観に近い特徴を探せるカタログサイト。",
+    locale: "ja_JP",
+    siteName: "宗教比較カタログ",
+    type: "website",
+    url: siteUrl,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "宗教比較カタログ",
+    description:
+      "宗教・宗派の教義、神観、実践、生活への影響を中立的に比較し、価値観に近い特徴を探せるカタログサイト。",
+  },
+  robots: {
+    follow: true,
+    index: true,
+  },
+  category: "reference",
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

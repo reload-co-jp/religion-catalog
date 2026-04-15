@@ -22,6 +22,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: ReligionDetailPageProps): Promise<Metadata> {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"
   const { id } = await params
   const record = getReligionById(id)
 
@@ -32,12 +33,27 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${record.religion} / ${record.sect} | 宗教比較カタログ`,
-    description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響を整理した個別ページ`,
+    title: `${record.religion} / ${record.sect}`,
+    description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響、他宗派との違いを整理した個別ページ。`,
+    alternates: {
+      canonical: `/religions/${record.id}/`,
+    },
+    openGraph: {
+      title: `${record.religion} / ${record.sect} | 宗教比較カタログ`,
+      description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響、他宗派との違いを整理した個別ページ。`,
+      type: "article",
+      url: `${siteUrl}/religions/${record.id}/`,
+    },
+    twitter: {
+      card: "summary",
+      title: `${record.religion} / ${record.sect} | 宗教比較カタログ`,
+      description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響、他宗派との違いを整理した個別ページ。`,
+    },
   }
 }
 
 const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"
   const { id } = await params
   const record = getReligionById(id)
 
@@ -46,9 +62,27 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
   }
 
   const comparisonTarget = getComparisonTarget(record, religionRecords)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: `${record.religion} / ${record.sect}`,
+    description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響、他宗派との違いを整理した個別ページ。`,
+    inLanguage: "ja",
+    mainEntityOfPage: `${siteUrl}/religions/${record.id}/`,
+    dateModified: record.updatedAt,
+    about: [
+      record.religion,
+      record.sect,
+      ...record.tags,
+    ],
+  }
 
   return (
     <div className={styles.page}>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        type="application/ld+json"
+      />
       <section className={styles.hero}>
         <p className={styles.eyebrow}>{record.religion}</p>
         <h1 className={styles.heroTitle}>{record.sect}</h1>
