@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Title } from "components/elements/layout"
 import "./reset.css"
+import Link from "next/link"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"
 
@@ -51,7 +52,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body>
         <header className="siteHeader">
           <div className="shell shellHeader">
-            <Title>宗教比較カタログ</Title>
+            <Link href="/">
+              <Title>宗教比較カタログ</Title>
+            </Link>
             <p className="siteMeta">
               教義・実践・生活への影響を、同一観点で整理して比較する
             </p>
@@ -62,7 +65,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         </main>
         <footer className="siteFooter">
           <div className="shell">
-            <p>情報整理を目的とした中立的な比較UIです。優劣評価や勧誘を意図しません。</p>
+            <p>
+              情報整理を目的とした中立的な比較UIです。優劣評価や勧誘を意図しません。
+            </p>
           </div>
         </footer>
       </body>
