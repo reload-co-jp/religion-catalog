@@ -62,20 +62,42 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
   }
 
   const comparisonTarget = getComparisonTarget(record, religionRecords)
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: `${record.religion} / ${record.sect}`,
-    description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響、他宗派との違いを整理した個別ページ。`,
-    inLanguage: "ja",
-    mainEntityOfPage: `${siteUrl}/religions/${record.id}/`,
-    dateModified: record.updatedAt,
-    about: [
-      record.religion,
-      record.sect,
-      ...record.tags,
-    ],
-  }
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: `${record.religion} / ${record.sect}`,
+      description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響、他宗派との違いを整理した個別ページ。`,
+      inLanguage: "ja",
+      mainEntityOfPage: `${siteUrl}/religions/${record.id}/`,
+      dateModified: record.updatedAt,
+      about: [record.religion, record.sect, ...record.tags],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ホーム",
+          item: `${siteUrl}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: record.religion,
+          item: `${siteUrl}/religions/${record.id}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: record.sect,
+          item: `${siteUrl}/religions/${record.id}/`,
+        },
+      ],
+    },
+  ]
 
   return (
     <div className={styles.page}>
@@ -84,6 +106,15 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
         type="application/ld+json"
       />
       <section className={styles.hero}>
+        <nav aria-label="パンくず" className={styles.breadcrumbs}>
+          <Link className={styles.breadcrumbLink} href="/">
+            ホーム
+          </Link>
+          <span className={styles.breadcrumbDivider}>/</span>
+          <span className={styles.breadcrumbCurrent}>{record.religion}</span>
+          <span className={styles.breadcrumbDivider}>/</span>
+          <span className={styles.breadcrumbCurrent}>{record.sect}</span>
+        </nav>
         <p className={styles.eyebrow}>{record.religion}</p>
         <h1 className={styles.heroTitle}>{record.sect}</h1>
         <p className={styles.heroText}>
@@ -93,11 +124,6 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
         <div className={styles.heroHighlights}>
           <span className={styles.heroPill}>はじめてでも読みやすい構成</span>
           <span className={styles.heroPill}>他宗派との違いも確認</span>
-        </div>
-        <div className={styles.cardActions}>
-          <Link className={styles.buttonGhost} href="/">
-            一覧へ戻る
-          </Link>
         </div>
       </section>
 
