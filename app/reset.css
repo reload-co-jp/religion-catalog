@@ -4,21 +4,22 @@
 }
 
 :root {
-  --bg: #09111b;
-  --panel: rgba(18, 27, 39, 0.88);
-  --panel-strong: #111a26;
-  --text: #f5efe3;
-  --muted: #c1b49b;
-  --accent: #d7a952;
-  --font-serif:
-    "Iowan Old Style", "Palatino Linotype", "Hiragino Mincho ProN", "Yu Mincho",
-    "Noto Serif JP", serif;
+  --bg: #f8f2e7;
+  --panel: rgba(255, 251, 245, 0.88);
+  --panel-strong: #fffaf1;
+  --text: #392f25;
+  --muted: #7b6d5e;
+  --accent: #d7893c;
   --font-sans:
-    "Avenir Next", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    "Trebuchet MS", "Avenir Next", "Hiragino Sans", "Yu Gothic",
+    "Noto Sans JP", sans-serif;
+  --font-display:
+    "Hiragino Maru Gothic ProN", "Arial Rounded MT Bold", "Avenir Next",
+    "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
   background:
-    radial-gradient(circle at top, rgba(215, 169, 82, 0.14), transparent 28%),
-    linear-gradient(180deg, #09111b 0%, #0d1621 46%, #070d16 100%);
-  color-scheme: dark;
+    radial-gradient(circle at top, rgba(255, 194, 106, 0.26), transparent 30%),
+    linear-gradient(180deg, #fff7ec 0%, #fff2dd 48%, #f7ecdf 100%);
+  color-scheme: light;
   color: var(--text);
   font-family: var(--font-sans);
 }
@@ -28,6 +29,7 @@ html {
 }
 
 body {
+  font-family: var(--font-sans);
   min-height: 100dvh;
 }
 
@@ -50,8 +52,8 @@ textarea {
 
 .siteHeader {
   backdrop-filter: blur(12px);
-  background: rgba(7, 13, 22, 0.78);
-  border-bottom: 1px solid rgba(244, 232, 205, 0.08);
+  background: rgba(255, 248, 238, 0.82);
+  border-bottom: 1px solid rgba(203, 163, 112, 0.16);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -77,7 +79,7 @@ textarea {
 }
 
 .siteFooter {
-  border-top: 1px solid rgba(244, 232, 205, 0.08);
+  border-top: 1px solid rgba(203, 163, 112, 0.16);
   color: var(--muted);
   font-size: 0.85rem;
   padding: 1rem 0 2rem;

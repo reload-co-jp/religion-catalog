@@ -53,9 +53,13 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
         <p className={styles.eyebrow}>{record.religion}</p>
         <h1 className={styles.heroTitle}>{record.sect}</h1>
         <p className={styles.heroText}>
-          個別ページでは、この宗派の概要、神観、教義、実践、生活への影響、比較ポイント、
-          出典情報をまとめて確認できます。
+          この宗派がどんな価値観や暮らし方に近いのかを、
+          概要、実践、生活への影響までまとめて、読みやすく確認できます。
         </p>
+        <div className={styles.heroHighlights}>
+          <span className={styles.heroPill}>はじめてでも読みやすい構成</span>
+          <span className={styles.heroPill}>他宗派との違いも確認</span>
+        </div>
         <div className={styles.cardActions}>
           <Link className={styles.buttonGhost} href="/">
             一覧へ戻る

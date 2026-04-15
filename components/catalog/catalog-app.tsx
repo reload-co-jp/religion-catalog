@@ -168,26 +168,17 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
-        <p className={styles.eyebrow}>Neutral Religion Catalog</p>
-        <h1 className={styles.heroTitle}>宗教と宗派の特徴を、中立的に比較する。</h1>
+        <p className={styles.eyebrow}>Find what to believe</p>
+        <h1 className={styles.heroTitle}>気になる価値観から、信じるものを見つける</h1>
         <p className={styles.heroText}>
-          教義、神観、実践、生活への影響を同じ観点で整理し、
-          価値観との相性を考えるための比較カタログです。優劣や推薦ではなく、
-          特徴理解に焦点を当てています。
+          いきなりむずかしい教義を読むのではなく、
+          暮らし方や大事にしたい価値観から、気になる宗教や宗派を気軽に見比べられます。
+          ここでは優劣ではなく、自分にとっての理解しやすさを大切にしています。
         </p>
-        <div className={styles.heroStats}>
-          <div className={styles.stat}>
-            <span className={styles.statLabel}>掲載宗派</span>
-            <strong className={styles.statValue}>{records.length}</strong>
-          </div>
-          <div className={styles.stat}>
-            <span className={styles.statLabel}>比較可能数</span>
-            <strong className={styles.statValue}>最大4件</strong>
-          </div>
-          <div className={styles.stat}>
-            <span className={styles.statLabel}>管理方式</span>
-            <strong className={styles.statValue}>JSONベース</strong>
-          </div>
+        <div className={styles.heroHighlights}>
+          <span className={styles.heroPill}>暮らしに近い視点でチェック</span>
+          <span className={styles.heroPill}>気になる条件ですぐ比較</span>
+          <span className={styles.heroPill}>はじめてでも読みやすい</span>
         </div>
       </section>
 
@@ -196,7 +187,7 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
           <div>
             <h2 className={styles.sectionTitle}>フィルタ</h2>
             <p className={styles.sectionText}>
-              READMEで定義された代表条件で絞り込み、一覧と詳細を横断して確認できます。
+              まずは気になる条件を選ぶだけで、雰囲気の近い宗派をすばやく見つけられます。
             </p>
           </div>
           <button
@@ -237,7 +228,7 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
           <div>
             <h2 className={styles.sectionTitle}>宗派一覧</h2>
             <p className={styles.sectionText}>
-              {filteredRecords.length}件を表示中。カードから詳細表示でき、下部の比較表に同じ条件の宗派が並びます。
+              {filteredRecords.length}件を表示中。気になる宗派から詳細を開き、同じ条件の違いをそのまま比べられます。
             </p>
           </div>
         </div>
