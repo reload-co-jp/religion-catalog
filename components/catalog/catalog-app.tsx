@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useMemo, useState } from "react"
 import styles from "components/catalog/catalog-app.module.css"
 import {
@@ -86,24 +87,6 @@ const compareRows: Array<{
   },
 ]
 
-const detailComparisons = [
-  {
-    label: "神観",
-    accessor: (record: ReligionRecord) =>
-      `${record.deityType} / 距離感: ${record.distanceToBelievers}`,
-  },
-  {
-    label: "実践",
-    accessor: (record: ReligionRecord) =>
-      `${record.worshipFrequency} / 実践負荷: ${record.practiceBurden}`,
-  },
-  {
-    label: "生活制約",
-    accessor: (record: ReligionRecord) =>
-      `飲酒: ${record.alcohol} / 戒律: ${record.disciplineStrictness}`,
-  },
-]
-
 const selectOptions = [
   {
     key: "deityType",
@@ -132,24 +115,8 @@ const selectOptions = [
   },
 ] as const
 
-const getComparisonTarget = (
-  record: ReligionRecord,
-  filteredRecords: ReligionRecord[],
-  allRecords: ReligionRecord[],
-) => {
-  const filteredTarget = filteredRecords.find((item) => item.id !== record.id)
-
-  return (
-    filteredTarget ??
-    allRecords.find(
-      (item) => item.id !== record.id && item.religion === record.religion,
-    ) ?? allRecords.find((item) => item.id !== record.id) ?? null
-  )
-}
-
 export const CatalogApp = ({ records }: CatalogAppProps) => {
   const [filters, setFilters] = useState<FilterState>(defaultFilters)
-  const [selectedId, setSelectedId] = useState(records[0]?.id ?? "")
 
   const filteredRecords = useMemo(
     () =>
@@ -190,16 +157,6 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
       }),
     [filters, records],
   )
-
-  const selectedRecord =
-    filteredRecords.find((record) => record.id === selectedId) ??
-    records.find((record) => record.id === selectedId) ??
-    filteredRecords[0] ??
-    records[0]
-
-  const comparisonTarget = selectedRecord
-    ? getComparisonTarget(selectedRecord, filteredRecords, records)
-    : null
 
   const onFilterChange = <Key extends keyof FilterState>(
     key: Key,
@@ -313,13 +270,9 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
                   </div>
 
                   <div className={styles.cardActions}>
-                    <button
-                      className={styles.button}
-                      onClick={() => setSelectedId(record.id)}
-                      type="button"
-                    >
-                      詳細を見る
-                    </button>
+                    <Link className={styles.buttonGhost} href={`/religions/${record.id}/`}>
+                      詳細
+                    </Link>
                   </div>
                 </article>
               )
@@ -375,216 +328,6 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
         )}
       </section>
 
-      <section className={styles.section}>
-        <div className={styles.sectionHeader}>
-          <div>
-            <h2 className={styles.sectionTitle}>詳細</h2>
-            <p className={styles.sectionText}>
-              概要、神観、教義、実践、生活への影響、フィルタ結果内での差分、出典を1画面で確認できます。
-            </p>
-          </div>
-        </div>
-        {selectedRecord ? (
-          <div className={styles.detailGrid}>
-            <div className={styles.detailStack}>
-              <section className={styles.detailPanel}>
-                <h3 className={styles.detailHeading}>1. 概要</h3>
-                <div className={styles.detailList}>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>宗教名 / 宗派名</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.religion} / {selectedRecord.sect}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>成立時代・発祥</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.foundedEra} / {selectedRecord.originRegion}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>創始者・中心人物</span>
-                    <p className={styles.detailValue}>{selectedRecord.founder}</p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>信者数・分布</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.followers} / {joinList(selectedRecord.distributionRegions)}
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <section className={styles.detailPanel}>
-                <h3 className={styles.detailHeading}>2. 神観</h3>
-                <div className={styles.detailList}>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>神タイプ</span>
-                    <p className={styles.detailValue}>{selectedRecord.deityType}</p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>人格性・世界創造・救済者有無</span>
-                    <p className={styles.detailValue}>
-                      人格性: {boolLabel(selectedRecord.hasPersonhood, "あり", "なし")} /
-                      世界創造: {boolLabel(selectedRecord.createdWorld, "あり", "なし")} /
-                      救済者: {boolLabel(selectedRecord.hasSavior, "あり", "なし")}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>介入性・距離感</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.interventionLevel} / {selectedRecord.distanceToBelievers}
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <section className={styles.detailPanel}>
-                <h3 className={styles.detailHeading}>3. 教義</h3>
-                <div className={styles.detailList}>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>世界観</span>
-                    <p className={styles.detailValue}>{selectedRecord.worldview}</p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>人間観・善悪観</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.humanView} {selectedRecord.goodEvilView}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>死後観・救済方法</span>
-                    <p className={styles.detailValue}>
-                      {joinList(selectedRecord.afterlife)} /{" "}
-                      {joinList(selectedRecord.salvationMethods)}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>苦しみの原因・理想的生き方</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.causeOfSuffering} {selectedRecord.idealWayOfLife}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>禁忌</span>
-                    <p className={styles.detailValue}>{joinList(selectedRecord.taboos)}</p>
-                  </div>
-                </div>
-              </section>
-            </div>
-
-            <div className={styles.detailStack}>
-              <section className={styles.detailPanel}>
-                <h3 className={styles.detailHeading}>4. 実践</h3>
-                <div className={styles.detailList}>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>礼拝頻度・祈り形式</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.worshipFrequency} / {selectedRecord.prayerStyle}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>瞑想・修行 / 断食</span>
-                    <p className={styles.detailValue}>
-                      {boolLabel(selectedRecord.hasMeditationPractice)} /{" "}
-                      {boolLabel(selectedRecord.hasFasting)}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>寄付・儀式参加・聖典重視度</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.donationImportance} / {selectedRecord.ritualImportance} /{" "}
-                      {selectedRecord.scriptureImportance}
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <section className={styles.detailPanel}>
-                <h3 className={styles.detailHeading}>5. 生活への影響</h3>
-                <div className={styles.detailList}>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>食事制限・飲酒</span>
-                    <p className={styles.detailValue}>
-                      {joinList(selectedRecord.dietaryRestrictions)} / {selectedRecord.alcohol}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>結婚観・性倫理・服装規定</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.marriageView} {selectedRecord.sexualEthics}{" "}
-                      {selectedRecord.dressCode}
-                    </p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>職業観・政治関係</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.workView} {selectedRecord.politicsRelation}
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <section className={styles.detailPanel}>
-                <h3 className={styles.detailHeading}>6. 他宗派との違い</h3>
-                {comparisonTarget ? (
-                  <div className={styles.detailList}>
-                    <div className={styles.detailItem}>
-                      <span className={styles.detailLabel}>比較対象</span>
-                      <p className={styles.detailValue}>
-                        {comparisonTarget.religion} / {comparisonTarget.sect}
-                        {filteredRecords.some((item) => item.id === comparisonTarget.id)
-                          ? "（現在のフィルタ結果から選出）"
-                          : "（近い宗派を自動選出）"}
-                      </p>
-                    </div>
-                    {detailComparisons.map((item) => (
-                      <div className={styles.detailItem} key={item.label}>
-                        <span className={styles.detailLabel}>{item.label}</span>
-                        <p className={styles.detailValue}>
-                          {selectedRecord.sect}: {item.accessor(selectedRecord)}
-                          <br />
-                          {comparisonTarget.sect}: {item.accessor(comparisonTarget)}
-                        </p>
-                      </div>
-                    ))}
-                    <div className={styles.detailItem}>
-                      <span className={styles.detailLabel}>特徴タグ</span>
-                      <p className={styles.detailValue}>
-                        {selectedRecord.sect}: {joinList(selectedRecord.tags)}
-                        <br />
-                        {comparisonTarget.sect}: {joinList(comparisonTarget.tags)}
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <p className={styles.detailValue}>比較対象がありません。</p>
-                )}
-              </section>
-
-              <section className={styles.detailPanel}>
-                <h3 className={styles.detailHeading}>7. 出典</h3>
-                <div className={styles.detailList}>
-                  {selectedRecord.sources.map((source) => (
-                    <div className={styles.detailItem} key={source.title}>
-                      <span className={styles.detailLabel}>{source.type}</span>
-                      <p className={styles.detailValue}>{source.title}</p>
-                    </div>
-                  ))}
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailLabel}>更新日・注意事項</span>
-                    <p className={styles.detailValue}>
-                      {selectedRecord.updatedAt} / {selectedRecord.notes}
-                    </p>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-        ) : (
-          <div className={styles.empty}>表示できる宗派データがありません。</div>
-        )}
-      </section>
     </div>
   )
 }

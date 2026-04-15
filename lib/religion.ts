@@ -63,6 +63,23 @@ export type ReligionRecord = {
 
 export const religionRecords = records as ReligionRecord[]
 
+export function getReligionById(id: string) {
+  return religionRecords.find((record) => record.id === id) ?? null
+}
+
+export function getComparisonTarget(
+  record: ReligionRecord,
+  candidateRecords: ReligionRecord[],
+) {
+  return (
+    candidateRecords.find(
+      (item) => item.id !== record.id && item.religion === record.religion,
+    ) ??
+    candidateRecords.find((item) => item.id !== record.id) ??
+    null
+  )
+}
+
 export const filterOptions = {
   deityType: ["すべて", "唯一神", "多神", "無神論的"] as const,
   afterlife: ["すべて", "天国", "地獄", "輪廻", "解脱", "浄土往生", "最後の審判"] as const,
