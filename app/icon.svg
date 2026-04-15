@@ -1,0 +1,19 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="64" fill="url(#bg)"/>
+  <circle cx="128" cy="128" r="76" fill="url(#halo)" opacity="0.92"/>
+  <path
+    d="M128 66C142.6 86.5 164.1 102.1 188 110.2C167.5 116.3 149.5 129.8 136.9 148.4C133.6 153.2 130.7 158.3 128 163.6C125.3 158.3 122.4 153.2 119.1 148.4C106.5 129.8 88.5 116.3 68 110.2C91.9 102.1 113.4 86.5 128 66Z"
+    fill="#FFF9EF"
+  />
+  <circle cx="128" cy="128" r="15" fill="#D98635"/>
+  <defs>
+    <linearGradient id="bg" x1="35" y1="24" x2="227" y2="235" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE1A8"/>
+      <stop offset="1" stop-color="#F2AE62"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(128 116) rotate(90) scale(88)">
+      <stop stop-color="#FFF7E8"/>
+      <stop offset="1" stop-color="#F9D8A4"/>
+    </radialGradient>
+  </defs>
+</svg>
