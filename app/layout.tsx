@@ -9,7 +9,7 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "宗教比較カタログ",
+    default: "宗教比較カタログ | 気になる価値観から、信じるものを見つける",
     template: "%s | 宗教比較カタログ",
   },
   description:
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "宗教比較カタログ",
+    title: "宗教比較カタログ | 気になる価値観から、信じるものを見つける",
     description:
       "宗教・宗派の教義、神観、実践、生活への影響を中立的に比較し、価値観に近い特徴を探せるカタログサイト。",
     images: [
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "宗教比較カタログ",
+    title: "宗教比較カタログ | 気になる価値観から、信じるものを見つける",
     description:
       "宗教・宗派の教義、神観、実践、生活への影響を中立的に比較し、価値観に近い特徴を探せるカタログサイト。",
     images: ["/opengraph-image"],

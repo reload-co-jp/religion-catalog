@@ -6,14 +6,14 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://religion-catalog.reload.co.jp"
 
 export const metadata: Metadata = {
-  title: "信じるものを見つける",
+  title: "宗教比較カタログ | 気になる価値観から、信じるものを見つける",
   description:
     "価値観や暮らし方に近い宗教・宗派を、教義、神観、実践、生活への影響から比較できる一覧ページ。",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "信じるものを見つける | 宗教比較カタログ",
+    title: "宗教比較カタログ | 気になる価値観から、信じるものを見つける",
     description:
       "価値観や暮らし方に近い宗教・宗派を、教義、神観、実践、生活への影響から比較できる一覧ページ。",
     images: [
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    title: "宗教比較カタログ | 気になる価値観から、信じるものを見つける",
     images: ["/opengraph-image"],
   },
 }

@@ -44,7 +44,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${record.religion} / ${record.sect}`,
+    title: `${record.religion} / ${record.sect} | 宗教比較カタログ`,
     description: `${record.religion} ${record.sect}の教義、神観、実践、生活への影響、他宗派との違いを整理した個別ページ。`,
     alternates: {
       canonical: `/religions/${record.id}/`,
