@@ -27,11 +27,6 @@ const compareRows: Array<{
   label: string
   render: (record: ReligionRecord) => string
 }> = [
-  {
-    key: "overview",
-    label: "概要",
-    render: (record) => `${record.religion} / ${record.sect}`,
-  },
   { key: "deityType", label: "神タイプ", render: (record) => record.deityType },
   {
     key: "godCharacter",
@@ -265,7 +260,7 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
         if (
           filters.marriageTags.length > 0 &&
           !filters.marriageTags.some((value) =>
-            record.marriageTags.includes(value),
+            record.marriageTags.includes(value)
           )
         ) {
           return false
@@ -287,7 +282,7 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
 
         return true
       }),
-    [filters, records],
+    [filters, records]
   )
 
   const onFilterToggle = (key: FilterOptionKey, value: string) => {
@@ -307,7 +302,9 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
     <div className={styles.page}>
       <section className={styles.hero}>
         <p className={styles.eyebrow}>Find what to believe</p>
-        <h1 className={styles.heroTitle}>気になる価値観から、信じるものを見つける</h1>
+        <h1 className={styles.heroTitle}>
+          気になる価値観から、信じるものを見つける
+        </h1>
         <p className={styles.heroText}>
           いきなりむずかしい教義を読むのではなく、
           暮らし方や大事にしたい価値観から、気になる宗教や宗派を気軽に見比べられます。
@@ -316,7 +313,7 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
         <div className={styles.heroHighlights}>
           <span className={styles.heroPill}>暮らしに近い視点でチェック</span>
           <span className={styles.heroPill}>気になる条件ですぐ比較</span>
-          <span className={styles.heroPill}>はじめてでも読みやすい</span>
+          <span className={styles.heroPill}>こだわりで絞り込み</span>
         </div>
       </section>
 
@@ -325,7 +322,8 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
           <div>
             <h2 className={styles.sectionTitle}>宗派一覧</h2>
             <p className={styles.sectionText}>
-              {filteredRecords.length}件を表示中。気になる宗派から詳細を開き、同じ条件の違いをそのまま比べられます。
+              {filteredRecords.length}
+              件を表示中。気になる宗派から詳細を開き、同じ条件の違いをそのまま比べられます。
             </p>
           </div>
           <button
@@ -369,7 +367,10 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
                   </div>
 
                   <div className={styles.cardActions}>
-                    <Link className={styles.buttonGhost} href={`/religions/${record.id}/`}>
+                    <Link
+                      className={styles.buttonGhost}
+                      href={`/religions/${record.id}/`}
+                    >
                       詳細
                     </Link>
                   </div>
@@ -420,7 +421,7 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
                 <tr>
                   <th>比較項目</th>
                   {filteredRecords.map((record) => (
-                    <th key={record.id}>
+                    <th key={record.id} style={{ textAlign: "center" }}>
                       {record.religion} / {record.sect}
                     </th>
                   ))}
@@ -431,7 +432,10 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
                   <tr key={`filtered-${row.key}`}>
                     <th scope="row">{row.label}</th>
                     {filteredRecords.map((record) => (
-                      <td key={`filtered-${row.key}-${record.id}`}>
+                      <td
+                        key={`filtered-${row.key}-${record.id}`}
+                        style={{ textAlign: "center" }}
+                      >
                         {row.render(record)}
                       </td>
                     ))}
@@ -446,7 +450,6 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
           </div>
         )}
       </section>
-
     </div>
   )
 }
