@@ -81,6 +81,36 @@ const compareRows: Array<{
     render: (record) => joinList(record.dietaryRestrictions),
   },
   {
+    key: "marriageView",
+    label: "結婚観",
+    render: (record) => record.marriageView,
+  },
+  {
+    key: "marriageTags",
+    label: "結婚観タグ",
+    render: (record) => joinList(record.marriageTags),
+  },
+  {
+    key: "workView",
+    label: "職業観",
+    render: (record) => record.workView,
+  },
+  {
+    key: "workTags",
+    label: "職業観タグ",
+    render: (record) => joinList(record.workTags),
+  },
+  {
+    key: "dressCode",
+    label: "服装規定",
+    render: (record) => record.dressCode,
+  },
+  {
+    key: "dressTags",
+    label: "服装規定タグ",
+    render: (record) => joinList(record.dressTags),
+  },
+  {
     key: "tags",
     label: "特徴タグ",
     render: (record) => joinList(record.tags),
@@ -113,43 +143,145 @@ const selectOptions = [
     label: "飲酒可否",
     values: filterOptions.alcohol,
   },
+  {
+    key: "communityImportance",
+    label: "共同体重視度",
+    values: filterOptions.communityImportance,
+  },
+  {
+    key: "worshipFrequency",
+    label: "礼拝頻度",
+    values: filterOptions.worshipFrequency,
+  },
+  {
+    key: "marriageTags",
+    label: "結婚観タグ",
+    values: filterOptions.marriageTags,
+  },
+  {
+    key: "workTags",
+    label: "職業観タグ",
+    values: filterOptions.workTags,
+  },
+  {
+    key: "dressTags",
+    label: "服装規定タグ",
+    values: filterOptions.dressTags,
+  },
 ] as const
+
+type FilterOptionKey = keyof FilterState
+
+const FilterControls = ({
+  filters,
+  onToggle,
+}: {
+  filters: FilterState
+  onToggle: (key: FilterOptionKey, value: string) => void
+}) => (
+  <div className={styles.filterGrid}>
+    {selectOptions.map((option) => (
+      <fieldset className={styles.filterFieldset} key={option.key}>
+        <legend className={styles.filterLegend}>{option.label}</legend>
+        <div className={styles.filterOptionList}>
+          {option.values.map((value) => {
+            const selectedValues = filters[option.key] as string[]
+            const checked = selectedValues.includes(value)
+
+            return (
+              <label className={styles.filterOption} key={value}>
+                <input
+                  checked={checked}
+                  className={styles.filterCheckbox}
+                  onChange={() => onToggle(option.key, value)}
+                  type="checkbox"
+                />
+                <span className={styles.filterOptionText}>{value}</span>
+              </label>
+            )
+          })}
+        </div>
+      </fieldset>
+    ))}
+  </div>
+)
 
 export const CatalogApp = ({ records }: CatalogAppProps) => {
   const [filters, setFilters] = useState<FilterState>(defaultFilters)
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const filteredRecords = useMemo(
     () =>
       records.filter((record) => {
         if (
-          filters.deityType !== "すべて" &&
-          record.deityType !== filters.deityType
+          filters.deityType.length > 0 &&
+          !filters.deityType.includes(record.deityType)
         ) {
           return false
         }
 
         if (
-          filters.afterlife !== "すべて" &&
-          !record.afterlife.includes(filters.afterlife)
+          filters.afterlife.length > 0 &&
+          !filters.afterlife.some((value) => record.afterlife.includes(value))
         ) {
           return false
         }
 
         if (
-          filters.disciplineStrictness !== "すべて" &&
-          record.disciplineStrictness !== filters.disciplineStrictness
+          filters.disciplineStrictness.length > 0 &&
+          !filters.disciplineStrictness.includes(record.disciplineStrictness)
         ) {
           return false
         }
 
         if (
-          filters.practiceBurden !== "すべて" &&
-          record.practiceBurden !== filters.practiceBurden
+          filters.practiceBurden.length > 0 &&
+          !filters.practiceBurden.includes(record.practiceBurden)
         ) {
           return false
         }
 
-        if (filters.alcohol !== "すべて" && record.alcohol !== filters.alcohol) {
+        if (
+          filters.alcohol.length > 0 &&
+          !filters.alcohol.includes(record.alcohol)
+        ) {
+          return false
+        }
+
+        if (
+          filters.communityImportance.length > 0 &&
+          !filters.communityImportance.includes(record.communityImportance)
+        ) {
+          return false
+        }
+
+        if (
+          filters.worshipFrequency.length > 0 &&
+          !filters.worshipFrequency.includes(record.worshipFrequency)
+        ) {
+          return false
+        }
+
+        if (
+          filters.marriageTags.length > 0 &&
+          !filters.marriageTags.some((value) =>
+            record.marriageTags.includes(value),
+          )
+        ) {
+          return false
+        }
+
+        if (
+          filters.workTags.length > 0 &&
+          !filters.workTags.some((value) => record.workTags.includes(value))
+        ) {
+          return false
+        }
+
+        if (
+          filters.dressTags.length > 0 &&
+          !filters.dressTags.some((value) => record.dressTags.includes(value))
+        ) {
           return false
         }
 
@@ -158,11 +290,17 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
     [filters, records],
   )
 
-  const onFilterChange = <Key extends keyof FilterState>(
-    key: Key,
-    value: FilterState[Key],
-  ) => {
-    setFilters((current) => ({ ...current, [key]: value }))
+  const onFilterToggle = (key: FilterOptionKey, value: string) => {
+    setFilters((current) => {
+      const values = current[key] as string[]
+
+      return {
+        ...current,
+        [key]: values.includes(value)
+          ? values.filter((item) => item !== value)
+          : [...values, value],
+      }
+    })
   }
 
   return (
@@ -185,53 +323,23 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div>
-            <h2 className={styles.sectionTitle}>フィルタ</h2>
-            <p className={styles.sectionText}>
-              まずは気になる条件を選ぶだけで、雰囲気の近い宗派をすばやく見つけられます。
-            </p>
-          </div>
-          <button
-            className={styles.buttonGhost}
-            onClick={() => setFilters(defaultFilters)}
-            type="button"
-          >
-            フィルタをリセット
-          </button>
-        </div>
-        <div className={styles.filterGrid}>
-          {selectOptions.map((option) => (
-            <label className={styles.filterField} key={option.key}>
-              <span className={styles.filterLabel}>{option.label}</span>
-              <select
-                className={styles.select}
-                onChange={(event) =>
-                  onFilterChange(
-                    option.key,
-                    event.target.value as FilterState[typeof option.key],
-                  )
-                }
-                value={filters[option.key]}
-              >
-                {option.values.map((value) => (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.sectionHeader}>
-          <div>
             <h2 className={styles.sectionTitle}>宗派一覧</h2>
             <p className={styles.sectionText}>
               {filteredRecords.length}件を表示中。気になる宗派から詳細を開き、同じ条件の違いをそのまま比べられます。
             </p>
           </div>
+          <button
+            aria-expanded={isFilterOpen}
+            className={styles.buttonGhost}
+            onClick={() => setIsFilterOpen((current) => !current)}
+            type="button"
+          >
+            {isFilterOpen ? "フィルターを閉じる" : "フィルターを表示"}
+          </button>
         </div>
+        {isFilterOpen ? (
+          <FilterControls filters={filters} onToggle={onFilterToggle} />
+        ) : null}
         {filteredRecords.length > 0 ? (
           <div className={styles.cards}>
             {filteredRecords.map((record) => {
@@ -279,12 +387,32 @@ export const CatalogApp = ({ records }: CatalogAppProps) => {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <div>
-            <h2 className={styles.sectionTitle}>フィルタ結果の比較</h2>
+            <h2 className={styles.sectionTitle}>比較</h2>
             <p className={styles.sectionText}>
-              現在のフィルタ条件に一致した宗派を、主要特徴ごとに横並びで比較できます。
+              気になる条件で絞り込んだ宗派を、主要特徴ごとに横並びで比較できます。
             </p>
           </div>
+          <div className={styles.sectionActions}>
+            <button
+              aria-expanded={isFilterOpen}
+              className={styles.buttonGhost}
+              onClick={() => setIsFilterOpen((current) => !current)}
+              type="button"
+            >
+              {isFilterOpen ? "フィルターを閉じる" : "フィルターを表示"}
+            </button>
+            <button
+              className={styles.buttonGhost}
+              onClick={() => setFilters(defaultFilters)}
+              type="button"
+            >
+              フィルタをリセット
+            </button>
+          </div>
         </div>
+        {isFilterOpen ? (
+          <FilterControls filters={filters} onToggle={onFilterToggle} />
+        ) : null}
         {filteredRecords.length > 0 ? (
           <div className={styles.compareTable}>
             <table className={styles.table}>

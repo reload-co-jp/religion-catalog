@@ -15,6 +15,20 @@ type ReligionDetailPageProps = {
   }>
 }
 
+const sectTaglines: Record<string, string> = {
+  "christianity-catholic": "秘跡と共同体を通して信仰を深める伝統",
+  "christianity-protestant": "聖書理解と個人の信仰を軸に生きる伝統",
+  "christianity-eastern-orthodox": "祈りと典礼の積み重ねで聖性を育む伝統",
+  "islam-sunni": "日々の礼拝と規律を生活に結びつける伝統",
+  "islam-shia": "正義と記憶の継承を大切にする信仰の伝統",
+  "buddhism-zen": "修行と瞑想を通して自己を見つめる伝統",
+  "buddhism-jodo-shinshu": "念仏と感謝の中で救いを受け取る伝統",
+  "hinduism-vaishnavism": "神への献身を日常に織り込む信仰の伝統",
+  "hinduism-shaivism": "瞑想と帰依を通して内面を深める伝統",
+  "judaism-orthodox": "律法と共同体の実践を日常に生かす伝統",
+  "sikhism-khalsa": "祈りと労働と奉仕をひとつにつなぐ伝統",
+}
+
 export async function generateStaticParams() {
   return religionRecords.map((record) => ({ id: record.id }))
 }
@@ -62,6 +76,15 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
   }
 
   const comparisonTarget = getComparisonTarget(record, religionRecords)
+  const heroFeatures = [
+    ...record.tags,
+    `${record.deityType}の神観`,
+    `${record.worshipFrequency}の礼拝`,
+    `${record.practiceBurden}めの実践負荷`,
+  ].slice(0, 3)
+  const sectTagline =
+    sectTaglines[record.id] ??
+    `${record.sect}をひとことで表すと、${record.tags[0] ?? "特徴ある"}伝統`
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -117,13 +140,13 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
         </nav>
         <p className={styles.eyebrow}>{record.religion}</p>
         <h1 className={styles.heroTitle}>{record.sect}</h1>
-        <p className={styles.heroText}>
-          {record.sect}がどんな価値観や暮らし方に近いのかを、
-          概要、実践、生活への影響までまとめて、読みやすく確認できます。
-        </p>
+        <p className={styles.heroText}>{sectTagline}</p>
         <div className={styles.heroHighlights}>
-          <span className={styles.heroPill}>はじめてでも読みやすい構成</span>
-          <span className={styles.heroPill}>他宗派との違いも確認</span>
+          {heroFeatures.map((feature) => (
+            <span className={styles.heroPill} key={feature}>
+              {feature}
+            </span>
+          ))}
         </div>
       </section>
 

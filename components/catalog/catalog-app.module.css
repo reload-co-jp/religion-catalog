@@ -4,10 +4,25 @@
 }
 
 .hero {
+  margin: 0 auto;
+  max-width: 1120px;
+  width: 100%;
   background:
-    radial-gradient(circle at top left, rgba(255, 201, 127, 0.42), transparent 34%),
-    radial-gradient(circle at bottom right, rgba(167, 221, 208, 0.28), transparent 30%),
-    linear-gradient(135deg, rgba(255, 246, 226, 0.96), rgba(255, 232, 196, 0.94));
+    radial-gradient(
+      circle at top left,
+      rgba(255, 201, 127, 0.42),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(167, 221, 208, 0.28),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 246, 226, 0.96),
+      rgba(255, 232, 196, 0.94)
+    );
   border: 1px solid rgba(223, 176, 108, 0.22);
   border-radius: 28px;
   padding: 2.2rem;
@@ -22,7 +37,11 @@
   width: 15rem;
   height: 15rem;
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(255, 186, 92, 0.24), transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 186, 92, 0.24),
+    transparent 70%
+  );
 }
 
 .breadcrumbs {
@@ -86,6 +105,9 @@
 }
 
 .section {
+  margin: 0 auto;
+  max-width: 1120px;
+  width: 100%;
   background: var(--panel);
   border: 1px solid rgba(210, 177, 129, 0.14);
   box-shadow: 0 18px 40px rgba(171, 138, 89, 0.08);
@@ -99,6 +121,11 @@
   gap: 1rem;
   justify-content: space-between;
   margin-bottom: 1rem;
+}
+
+.sectionActions {
+  display: flex;
+  gap: 0.75rem;
 }
 
 .sectionTitle {
@@ -116,26 +143,53 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  margin-bottom: 1.25rem;
 }
 
-.filterField {
+.filterFieldset {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.filterLegend {
   display: grid;
   gap: 0.45rem;
+  margin-bottom: 0.55rem;
 }
 
-.filterLabel {
+.filterLabel,
+.filterLegend {
   color: var(--muted);
   font-size: 0.85rem;
 }
 
-.select {
-  appearance: none;
+.filterOptionList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.filterOption {
+  align-items: center;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(210, 177, 129, 0.24);
-  border-radius: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 0.5rem;
+  padding: 0.125rem 0.5rem;
+}
+
+.filterCheckbox {
+  accent-color: #d7893c;
+  flex: 0 0 auto;
+}
+
+.filterOptionText {
   color: var(--text);
-  font: inherit;
-  padding: 0.85rem 0.95rem;
+  font-size: 0.92rem;
 }
 
 .cards {
@@ -145,8 +199,11 @@
 }
 
 .card {
-  background:
-    linear-gradient(180deg, rgba(255, 252, 247, 0.98), rgba(252, 245, 235, 0.98));
+  background: linear-gradient(
+    180deg,
+    rgba(255, 252, 247, 0.98),
+    rgba(252, 245, 235, 0.98)
+  );
   border: 1px solid rgba(210, 177, 129, 0.16);
   border-radius: 22px;
   box-shadow: 0 14px 30px rgba(171, 138, 89, 0.08);
@@ -288,11 +345,15 @@
 
 .compareTable {
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding-bottom: 0.25rem;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
   border-collapse: collapse;
-  width: 100%;
+  min-width: 720px;
+  width: max-content;
 }
 
 .table th,
@@ -324,6 +385,11 @@
   .sectionHeader {
     align-items: start;
     flex-direction: column;
+  }
+
+  .sectionActions {
+    flex-direction: column;
+    width: 100%;
   }
 
   .cardActions {
