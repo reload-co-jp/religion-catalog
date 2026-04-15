@@ -14,6 +14,8 @@ function joinList(values: string[]) {
 }
 
 export const ReligionDetail = ({ record }: ReligionDetailProps) => {
+  const historySummary = `${record.foundedEra}に${record.originRegion}で形成され、${record.founder}が重要な起点として語られます。${record.notes}`
+
   return (
     <div className={styles.detailGrid}>
       <div className={styles.detailStack}>
@@ -46,7 +48,23 @@ export const ReligionDetail = ({ record }: ReligionDetailProps) => {
         </section>
 
         <section className={styles.detailPanel}>
-          <h3 className={styles.detailHeading}>2. 神観</h3>
+          <h3 className={styles.detailHeading}>2. 歴史・誕生経緯</h3>
+          <div className={styles.detailList}>
+            <div className={styles.detailItem}>
+              <span className={styles.detailLabel}>成立の背景</span>
+              <p className={styles.detailValue}>{historySummary}</p>
+            </div>
+            <div className={styles.detailItem}>
+              <span className={styles.detailLabel}>広がった地域</span>
+              <p className={styles.detailValue}>
+                {joinList(record.distributionRegions)}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.detailPanel}>
+          <h3 className={styles.detailHeading}>3. 神観</h3>
           <div className={styles.detailList}>
             <div className={styles.detailItem}>
               <span className={styles.detailLabel}>神タイプ</span>
@@ -70,7 +88,7 @@ export const ReligionDetail = ({ record }: ReligionDetailProps) => {
         </section>
 
         <section className={styles.detailPanel}>
-          <h3 className={styles.detailHeading}>3. 教義</h3>
+          <h3 className={styles.detailHeading}>4. 教義</h3>
           <div className={styles.detailList}>
             <div className={styles.detailItem}>
               <span className={styles.detailLabel}>世界観</span>
@@ -104,7 +122,7 @@ export const ReligionDetail = ({ record }: ReligionDetailProps) => {
 
       <div className={styles.detailStack}>
         <section className={styles.detailPanel}>
-          <h3 className={styles.detailHeading}>4. 実践</h3>
+          <h3 className={styles.detailHeading}>5. 実践</h3>
           <div className={styles.detailList}>
             <div className={styles.detailItem}>
               <span className={styles.detailLabel}>礼拝頻度・祈り形式</span>
@@ -130,7 +148,7 @@ export const ReligionDetail = ({ record }: ReligionDetailProps) => {
         </section>
 
         <section className={styles.detailPanel}>
-          <h3 className={styles.detailHeading}>5. 生活への影響</h3>
+          <h3 className={styles.detailHeading}>6. 生活への影響</h3>
           <div className={styles.detailList}>
             <div className={styles.detailItem}>
               <span className={styles.detailLabel}>食事制限・飲酒</span>
@@ -196,7 +214,7 @@ export const ReligionDetail = ({ record }: ReligionDetailProps) => {
         </section>
 
         <section className={styles.detailPanel}>
-          <h3 className={styles.detailHeading}>6. 出典</h3>
+          <h3 className={styles.detailHeading}>7. 出典</h3>
           <div className={styles.detailList}>
             {record.sources.map((source) => (
               <div className={styles.detailItem} key={source.title}>
