@@ -1,11 +1,99 @@
 * {
   box-sizing: border-box;
-  font-family: sans-serif;
   margin: 0;
 }
 
 :root {
-  background: #333;
-  color: #f0f0f0;
+  --bg: #09111b;
+  --panel: rgba(18, 27, 39, 0.88);
+  --panel-strong: #111a26;
+  --text: #f5efe3;
+  --muted: #c1b49b;
+  --accent: #d7a952;
+  --font-serif:
+    "Iowan Old Style", "Palatino Linotype", "Hiragino Mincho ProN", "Yu Mincho",
+    "Noto Serif JP", serif;
+  --font-sans:
+    "Avenir Next", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(215, 169, 82, 0.14), transparent 28%),
+    linear-gradient(180deg, #09111b 0%, #0d1621 46%, #070d16 100%);
   color-scheme: dark;
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.shell {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: min(100% - 2rem, 1280px);
+}
+
+.siteHeader {
+  backdrop-filter: blur(12px);
+  background: rgba(7, 13, 22, 0.78);
+  border-bottom: 1px solid rgba(244, 232, 205, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.shellHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.siteMeta {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.siteMain {
+  min-height: calc(100dvh - 9rem);
+  padding: 2rem 0 3rem;
+}
+
+.siteFooter {
+  border-top: 1px solid rgba(244, 232, 205, 0.08);
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 1rem 0 2rem;
+}
+
+@media (max-width: 720px) {
+  .shell {
+    width: min(100% - 1rem, 1280px);
+  }
+
+  .shellHeader {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .siteMeta {
+    text-align: left;
+  }
 }

@@ -1,7 +1,8 @@
-import { FC } from "react"
+import { CatalogApp } from "components/catalog/catalog-app"
+import { religionRecords } from "lib/religion"
 
-const Page: FC = () => {
-  return <></>
+const Page = () => {
+  return <CatalogApp records={religionRecords} />
 }
 
 export default Page

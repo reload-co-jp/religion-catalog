@@ -2,42 +2,29 @@ import { Title } from "components/elements/layout"
 import "./reset.css"
 
 export const metadata = {
-  title: "Page title",
-  description: "Page description",
+  title: "宗教比較カタログ",
+  description: "宗教・宗派の教義、神観、実践、生活への影響を中立的に比較するカタログサイト",
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ja">
       <body>
-        <header
-          style={{
-            backgroundColor: "#333",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            padding: ".5rem 1rem",
-            position: "relative",
-          }}
-        >
-          <Title>Page title</Title>
+        <header className="siteHeader">
+          <div className="shell shellHeader">
+            <Title>宗教比較カタログ</Title>
+            <p className="siteMeta">
+              教義・実践・生活への影響を、同一観点で整理して比較する
+            </p>
+          </div>
         </header>
-        <main
-          style={{
-            background: "#222",
-            minHeight: "calc(100dvh - 5.625rem)",
-            padding: "1rem",
-          }}
-        >
-          {children}
+        <main className="siteMain">
+          <div className="shell">{children}</div>
         </main>
-        <footer
-          style={{
-            backgroundColor: "#333",
-            boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
-            fontSize: ".75rem",
-            padding: "1rem",
-          }}
-        >
-          <p>&copy; My organization</p>
+        <footer className="siteFooter">
+          <div className="shell">
+            <p>情報整理を目的とした中立的な比較UIです。優劣評価や勧誘を意図しません。</p>
+          </div>
         </footer>
       </body>
     </html>
