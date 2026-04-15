@@ -2,7 +2,8 @@ import type { Metadata } from "next"
 import { CatalogApp } from "components/catalog/catalog-app"
 import { religionRecords } from "lib/religion"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://religion-catalog.reload.co.jp"
 
 export const metadata: Metadata = {
   title: "信じるものを見つける",

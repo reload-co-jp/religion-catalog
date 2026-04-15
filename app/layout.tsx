@@ -3,7 +3,8 @@ import { Title } from "components/elements/layout"
 import "./reset.css"
 import Link from "next/link"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://religion-catalog.reload.co.jp"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

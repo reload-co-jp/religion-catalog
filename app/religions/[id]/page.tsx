@@ -32,7 +32,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: ReligionDetailPageProps): Promise<Metadata> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://religion-catalog.reload.co.jp"
   const { id } = await params
   const record = getReligionById(id)
 
@@ -72,7 +73,8 @@ export async function generateMetadata({
 }
 
 const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://religion-catalog.reload.co.jp"
   const { id } = await params
   const record = getReligionById(id)
 
