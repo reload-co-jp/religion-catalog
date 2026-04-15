@@ -2,27 +2,8 @@ import styles from "components/catalog/catalog-app.module.css"
 import type { ReligionRecord } from "lib/religion"
 
 type ReligionDetailProps = {
-  comparisonTarget: ReligionRecord | null
   record: ReligionRecord
 }
-
-const detailComparisons = [
-  {
-    label: "神観",
-    accessor: (record: ReligionRecord) =>
-      `${record.deityType} / 距離感: ${record.distanceToBelievers}`,
-  },
-  {
-    label: "実践",
-    accessor: (record: ReligionRecord) =>
-      `${record.worshipFrequency} / 実践負荷: ${record.practiceBurden}`,
-  },
-  {
-    label: "生活制約",
-    accessor: (record: ReligionRecord) =>
-      `飲酒: ${record.alcohol} / 戒律: ${record.disciplineStrictness}`,
-  },
-] as const
 
 function boolLabel(value: boolean, truthy = "あり", falsy = "なし") {
   return value ? truthy : falsy
@@ -32,10 +13,7 @@ function joinList(values: string[]) {
   return values.length > 0 ? values.join(" / ") : "特記事項なし"
 }
 
-export const ReligionDetail = ({
-  comparisonTarget,
-  record,
-}: ReligionDetailProps) => {
+export const ReligionDetail = ({ record }: ReligionDetailProps) => {
   return (
     <div className={styles.detailGrid}>
       <div className={styles.detailStack}>
@@ -167,50 +145,58 @@ export const ReligionDetail = ({
               </p>
             </div>
             <div className={styles.detailItem}>
+              <span className={styles.detailLabel}>結婚観タグ</span>
+              <div className={styles.chipRow}>
+                {record.marriageTags.length > 0 ? (
+                  record.marriageTags.map((tag) => (
+                    <span className={styles.chip} key={tag}>
+                      {tag}
+                    </span>
+                  ))
+                ) : (
+                  <p className={styles.detailValue}>特記事項なし</p>
+                )}
+              </div>
+            </div>
+            <div className={styles.detailItem}>
               <span className={styles.detailLabel}>職業観・政治関係</span>
               <p className={styles.detailValue}>
                 {record.workView} {record.politicsRelation}
               </p>
             </div>
+            <div className={styles.detailItem}>
+              <span className={styles.detailLabel}>職業観タグ</span>
+              <div className={styles.chipRow}>
+                {record.workTags.length > 0 ? (
+                  record.workTags.map((tag) => (
+                    <span className={styles.chip} key={tag}>
+                      {tag}
+                    </span>
+                  ))
+                ) : (
+                  <p className={styles.detailValue}>特記事項なし</p>
+                )}
+              </div>
+            </div>
+            <div className={styles.detailItem}>
+              <span className={styles.detailLabel}>服装規定タグ</span>
+              <div className={styles.chipRow}>
+                {record.dressTags.length > 0 ? (
+                  record.dressTags.map((tag) => (
+                    <span className={styles.chip} key={tag}>
+                      {tag}
+                    </span>
+                  ))
+                ) : (
+                  <p className={styles.detailValue}>特記事項なし</p>
+                )}
+              </div>
+            </div>
           </div>
         </section>
 
         <section className={styles.detailPanel}>
-          <h3 className={styles.detailHeading}>6. 他宗派との違い</h3>
-          {comparisonTarget ? (
-            <div className={styles.detailList}>
-              <div className={styles.detailItem}>
-                <span className={styles.detailLabel}>比較対象</span>
-                <p className={styles.detailValue}>
-                  {comparisonTarget.religion} / {comparisonTarget.sect}
-                </p>
-              </div>
-              {detailComparisons.map((item) => (
-                <div className={styles.detailItem} key={item.label}>
-                  <span className={styles.detailLabel}>{item.label}</span>
-                  <p className={styles.detailValue}>
-                    {record.sect}: {item.accessor(record)}
-                    <br />
-                    {comparisonTarget.sect}: {item.accessor(comparisonTarget)}
-                  </p>
-                </div>
-              ))}
-              <div className={styles.detailItem}>
-                <span className={styles.detailLabel}>特徴タグ</span>
-                <p className={styles.detailValue}>
-                  {record.sect}: {joinList(record.tags)}
-                  <br />
-                  {comparisonTarget.sect}: {joinList(comparisonTarget.tags)}
-                </p>
-              </div>
-            </div>
-          ) : (
-            <p className={styles.detailValue}>比較対象がありません。</p>
-          )}
-        </section>
-
-        <section className={styles.detailPanel}>
-          <h3 className={styles.detailHeading}>7. 出典</h3>
+          <h3 className={styles.detailHeading}>6. 出典</h3>
           <div className={styles.detailList}>
             {record.sources.map((source) => (
               <div className={styles.detailItem} key={source.title}>

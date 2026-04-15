@@ -3,11 +3,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import styles from "components/catalog/catalog-app.module.css"
 import { ReligionDetail } from "components/catalog/religion-detail"
-import {
-  getComparisonTarget,
-  getReligionById,
-  religionRecords,
-} from "lib/religion"
+import { getReligionById, religionRecords } from "lib/religion"
 
 type ReligionDetailPageProps = {
   params: Promise<{
@@ -75,7 +71,6 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
     notFound()
   }
 
-  const comparisonTarget = getComparisonTarget(record, religionRecords)
   const heroFeatures = [
     ...record.tags,
     `${record.deityType}の神観`,
@@ -157,7 +152,7 @@ const ReligionDetailPage = async ({ params }: ReligionDetailPageProps) => {
             <p className={styles.sectionText}>宗派の特徴を整理しています</p>
           </div>
         </div>
-        <ReligionDetail comparisonTarget={comparisonTarget} record={record} />
+        <ReligionDetail record={record} />
       </section>
     </div>
   )
