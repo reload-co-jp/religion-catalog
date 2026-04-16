@@ -23,6 +23,11 @@ const sectTaglines: Record<string, string> = {
   "hinduism-shaivism": "瞑想と帰依を通して内面を深める伝統",
   "judaism-orthodox": "律法と共同体の実践を日常に生かす伝統",
   "sikhism-khalsa": "祈りと労働と奉仕をひとつにつなぐ伝統",
+  "jainism-digambara": "非暴力と禁欲を徹底して魂の浄化を目指す伝統",
+  "bahai-faith": "祈りと奉仕を通して人類の統一を大切にする伝統",
+  "shinto-shrine": "自然と地域のつながりを祭りと祈りで育む伝統",
+  "kardecism-spiritism": "祈りと慈善を通して霊的成長を重ねていく伝統",
+  "candomble-ketu": "歌と舞踊と儀礼でオリシャとのつながりを育む伝統",
 }
 
 export async function generateStaticParams() {
