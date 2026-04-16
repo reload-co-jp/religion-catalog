@@ -112,6 +112,7 @@
   border: 1px solid rgba(210, 177, 129, 0.14);
   box-shadow: 0 18px 40px rgba(171, 138, 89, 0.08);
   border-radius: 24px;
+  overflow: scroll;
   padding: 1.25rem;
 }
 
@@ -443,5 +444,26 @@
 
   .cardActions {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    border-radius: 16px;
+    padding: 1.25rem;
+  }
+
+  .section {
+    border-radius: 16px;
+    padding: 0.875rem;
+  }
+
+  .filterGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .buttonGhost,
+  .button {
+    width: 100%;
   }
 }

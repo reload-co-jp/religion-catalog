@@ -106,3 +106,13 @@ textarea {
     text-align: left;
   }
 }
+
+@media (max-width: 480px) {
+  .siteMain {
+    padding: 1.25rem 0 2rem;
+  }
+
+  .siteMeta {
+    display: none;
+  }
+}
