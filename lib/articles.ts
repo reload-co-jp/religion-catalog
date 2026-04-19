@@ -5,6 +5,7 @@ export type ArticleDefinition = {
   points: string[]
   slug: string
   title: string
+  updatedAt: string
 }
 
 export const articleDefinitions: ArticleDefinition[] = [
@@ -14,6 +15,7 @@ export const articleDefinitions: ArticleDefinition[] = [
     title: "死後観とは",
     description:
       "宗教比較でよく出てくる死後観の違いを、天国、地獄、輪廻、解脱などの観点から整理する解説記事。",
+    updatedAt: "2026-04-16",
     intro:
       "死後観とは、人が死んだあとにどうなると考えるかという見方です。宗教によって、天国や地獄を重視するもの、輪廻を前提にするもの、解脱や神との合一を目標にするものなど、かなり違いがあります。",
     points: [
@@ -28,6 +30,7 @@ export const articleDefinitions: ArticleDefinition[] = [
     title: "救済とは",
     description:
       "宗教における救済の意味と、信仰、善行、修行、恩寵などの違いを整理する解説記事。",
+    updatedAt: "2026-04-16",
     intro:
       "救済とは、人間が苦しみや罪、無知、束縛からどのように解放されるのかを示す考え方です。宗教によって、信仰による救い、善行の積み重ね、神の恩寵、修行による覚りなど、重点が異なります。",
     points: [
@@ -42,6 +45,7 @@ export const articleDefinitions: ArticleDefinition[] = [
     title: "実践負荷とは",
     description:
       "礼拝頻度、断食、食事制限、共同体参加などから宗教実践の負荷感を考える解説記事。",
+    updatedAt: "2026-04-16",
     intro:
       "実践負荷とは、その宗教や宗派の教えを生活の中でどのくらい継続的に実行する必要があるかを見るための目安です。礼拝頻度、断食、食事制限、服装規定、共同体参加の強さなどが関わります。",
     points: [
@@ -56,6 +60,7 @@ export const articleDefinitions: ArticleDefinition[] = [
     title: "戒律とは",
     description:
       "宗教における戒律の意味や、食事、服装、行動規範との関係をやさしく整理する解説記事。",
+    updatedAt: "2026-04-16",
     intro:
       "戒律とは、信仰を日常の中でどう守り、どう生きるかを形にするための規範です。禁止事項として理解されがちですが、実際には共同体の一体感や自己鍛錬、神や教えへの忠実さを支える役割も持っています。",
     points: [
