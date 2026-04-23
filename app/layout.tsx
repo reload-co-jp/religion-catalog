@@ -1,10 +1,13 @@
 import type { Metadata } from "next"
+import Script from "next/script"
 import { Title } from "components/elements/layout"
 import "./reset.css"
 import Link from "next/link"
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://religion-catalog.reload.co.jp"
+const googleAnalyticsId = "G-7PTQHSDKXN"
+const isProduction = process.env.NODE_ENV === "production"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -60,6 +63,22 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ja">
       <body>
+        {isProduction && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${googleAnalyticsId}');
+              `}
+            </Script>
+          </>
+        )}
         <header className="siteHeader">
           <div className="shell shellHeader">
             <Link href="/">
