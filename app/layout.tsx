@@ -98,6 +98,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
               情報整理を目的とした中立的な比較UIです。優劣評価や勧誘を意図しません。
             </p>
             <p className="footerLinks">
+              <Link href="/about/">運営会社</Link>
+              <span>/</span>
               <Link href="/articles/">解説記事一覧</Link>
               <span>/</span>
               <Link href="/articles/afterlife/">死後観とは</Link>

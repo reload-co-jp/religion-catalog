@@ -39,6 +39,12 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${siteUrl}/about/`,
+      lastModified: "2026-05-08",
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
   ]
 
   const religionRoutes: MetadataRoute.Sitemap = religionRecords.map((record) => ({
